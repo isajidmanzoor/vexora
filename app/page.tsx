@@ -13,13 +13,15 @@ export default function Home() {
           <div className="text-2xl font-black bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
             VEXORA
           </div>
-          <div className="hidden md:flex items-center gap-8 text-sm text-gray-400">
+          <div className="hidden md:flex items-center gap-6 text-sm text-gray-400">
             <a href="#features" className="hover:text-white transition">Features</a>
-            <a href="#products" className="hover:text-white transition">Products</a>
-            <a href="#earn" className="hover:text-white transition">Earn</a>
-            <button className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-full transition">
+            <a href="/products" className="hover:text-white transition">Products</a>
+            <a href="/cpa" className="hover:text-white transition">Earn</a>
+            <a href="/cart" className="hover:text-white transition">Cart</a>
+            <a href="/dashboard" className="hover:text-white transition">Dashboard</a>
+            <a href="/products" className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-full transition">
               Shop Now
-            </button>
+            </a>
           </div>
           <button className="md:hidden" onClick={() => setMenuOpen(!menuOpen)}>
             {menuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -28,9 +30,11 @@ export default function Home() {
         {menuOpen && (
           <div className="md:hidden bg-black/95 px-4 py-4 flex flex-col gap-4 text-gray-400">
             <a href="#features" onClick={() => setMenuOpen(false)}>Features</a>
-            <a href="#products" onClick={() => setMenuOpen(false)}>Products</a>
-            <a href="#earn" onClick={() => setMenuOpen(false)}>Earn</a>
-            <button className="bg-purple-600 text-white px-4 py-2 rounded-full">Shop Now</button>
+            <a href="/products" onClick={() => setMenuOpen(false)}>Products</a>
+            <a href="/cpa" onClick={() => setMenuOpen(false)}>Earn</a>
+            <a href="/cart" onClick={() => setMenuOpen(false)}>Cart</a>
+            <a href="/dashboard" onClick={() => setMenuOpen(false)}>Dashboard</a>
+            <a href="/products" className="bg-purple-600 text-white px-4 py-2 rounded-full text-center">Shop Now</a>
           </div>
         )}
       </nav>
@@ -49,12 +53,12 @@ export default function Home() {
             AI-powered store with thousands of products. Best prices, worldwide shipping, 24/7 AI support.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="bg-gradient-to-r from-purple-600 to-pink-600 hover:opacity-90 text-white px-8 py-4 rounded-full font-bold text-lg flex items-center justify-center gap-2 transition">
+            <a href="/products" className="bg-gradient-to-r from-purple-600 to-pink-600 hover:opacity-90 text-white px-8 py-4 rounded-full font-bold text-lg flex items-center justify-center gap-2 transition">
               Start Shopping <ArrowRight size={20} />
-            </button>
-            <button className="border border-white/20 hover:border-white/40 text-white px-8 py-4 rounded-full font-bold text-lg transition">
-              Learn More
-            </button>
+            </a>
+            <a href="/cpa" className="border border-white/20 hover:border-white/40 text-white px-8 py-4 rounded-full font-bold text-lg transition">
+              Start Earning
+            </a>
           </div>
         </div>
       </section>
@@ -113,11 +117,11 @@ export default function Home() {
               { emoji: '💄', name: 'Beauty', count: '1.2K+ items' },
               { emoji: '🧸', name: 'Kids & Toys', count: '900+ items' },
             ].map((cat) => (
-              <div key={cat.name} className="bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-purple-500/50 hover:bg-white/10 transition cursor-pointer text-center">
+              <a href="/products" key={cat.name} className="bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-purple-500/50 hover:bg-white/10 transition cursor-pointer text-center">
                 <div className="text-4xl mb-3">{cat.emoji}</div>
                 <h3 className="font-bold mb-1">{cat.name}</h3>
                 <p className="text-gray-400 text-sm">{cat.count}</p>
-              </div>
+              </a>
             ))}
           </div>
         </div>
@@ -140,9 +144,9 @@ export default function Home() {
               </div>
             ))}
           </div>
-          <button className="bg-gradient-to-r from-purple-600 to-pink-600 hover:opacity-90 text-white px-8 py-4 rounded-full font-bold text-lg transition">
+          <a href="/cpa" className="bg-gradient-to-r from-purple-600 to-pink-600 hover:opacity-90 text-white px-8 py-4 rounded-full font-bold text-lg transition inline-block">
             Join Affiliate Program
-          </button>
+          </a>
         </div>
       </section>
 
@@ -179,7 +183,8 @@ export default function Home() {
             <a href="#" className="hover:text-white transition">Privacy</a>
             <a href="#" className="hover:text-white transition">Terms</a>
             <a href="#" className="hover:text-white transition">Contact</a>
-            <a href="#" className="hover:text-white transition">Affiliate</a>
+            <a href="/cpa" className="hover:text-white transition">Affiliate</a>
+            <a href="/dashboard" className="hover:text-white transition">Dashboard</a>
           </div>
           <p className="text-gray-600 text-xs mt-6">© 2026 VEXORA. All rights reserved.</p>
         </div>
