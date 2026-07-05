@@ -227,6 +227,7 @@ export default function ProductsPage() {
 }
 
 const fallbackProducts = [
+  { product_id: 'real-1', product_title: 'X15 TWS Wireless Bluetooth Gaming Earbuds with LED Display', target_sale_price: '3.62', original_price: '3.62', product_main_image_url: 'https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=400&q=80', discount: 0, promotion_link: 'https://s.click.aliexpress.com/e/_c3JTjjNF' },
   { product_id: '1', product_title: 'Smart LED Strip Lights', target_sale_price: '29.99', original_price: '59.99', product_main_image_url: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80', discount: 50, promotion_link: '#' },
   { product_id: '2', product_title: 'Wireless Earbuds Pro', target_sale_price: '49.99', original_price: '99.99', product_main_image_url: 'https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=400&q=80', discount: 50, promotion_link: '#' },
   { product_id: '3', product_title: 'Yoga Mat Premium', target_sale_price: '24.99', original_price: '49.99', product_main_image_url: 'https://images.unsplash.com/photo-1601925228604-57f844f7f9a2?w=400&q=80', discount: 50, promotion_link: '#' },
