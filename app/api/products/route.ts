@@ -46,11 +46,15 @@ export async function GET(request: Request) {
 
   params.sign = sign(params)
 
-  const query = new URLSearchParams(params).toString()
-  const url = `https://api-sg.aliexpress.com/sync?${query}`
+  const url = 'https://api-sg.aliexpress.com/sync'
+  const body = new URLSearchParams(params).toString()
 
   try {
-    const res = await fetch(url)
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8' },
+      body,
+    })
     const data = await res.json()
     const products = data?.aliexpress_affiliate_product_query_response?.resp_result?.result?.products?.product || []
     return NextResponse.json({ products, _debug: data })
