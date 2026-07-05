@@ -6,7 +6,7 @@ const APP_SECRET = process.env.ALIEXPRESS_APP_SECRET!
 
 function sign(params: Record<string, string>) {
   const sorted = Object.keys(params).sort().map(k => `${k}${params[k]}`).join('')
-  return crypto.createHmac('sha256', APP_SECRET).update(APP_SECRET + sorted + APP_SECRET).digest('hex').toUpperCase()
+  return crypto.createHmac('sha256', APP_SECRET).update(sorted).digest('hex').toUpperCase()
 }
 
 export async function GET(request: Request) {
