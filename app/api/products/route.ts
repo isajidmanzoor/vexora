@@ -31,7 +31,8 @@ export async function GET(request: Request) {
 
   params.sign = sign(params)
 
-  const query = new URLSearchParams(params).toString()
+  // Build query string WITHOUT URL-encoding, per AliExpress's own guidance
+  const query = Object.keys(params).map(k => `${k}=${params[k]}`).join('&')
   const url = `https://api-sg.aliexpress.com/sync?${query}`
 
   try {
