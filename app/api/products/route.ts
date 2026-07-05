@@ -38,8 +38,8 @@ export async function GET(request: Request) {
     const res = await fetch(url)
     const data = await res.json()
     const products = data?.aliexpress_affiliate_product_query_response?.resp_result?.result?.products?.product || []
-    return NextResponse.json({ products })
+    return NextResponse.json({ products, _debug: data })
   } catch (err) {
-    return NextResponse.json({ products: [], error: 'Failed to fetch' })
+    return NextResponse.json({ products: [], error: 'Failed to fetch', _debug: String(err) })
   }
 }
