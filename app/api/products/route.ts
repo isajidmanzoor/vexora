@@ -4,6 +4,7 @@ import { AffiliateClient } from 'ae_sdk'
 const client = new AffiliateClient({
   app_key: process.env.ALIEXPRESS_APP_KEY!,
   app_secret: process.env.ALIEXPRESS_APP_SECRET!,
+  session: '',
 })
 
 export async function GET(request: Request) {
