@@ -1,6 +1,6 @@
 'use client'
 import { useState } from 'react'
-import { DollarSign, Users, TrendingUp, Copy, CheckCircle, Link, BarChart3, ArrowUpRight } from 'lucide-react'
+import { DollarSign, Users, TrendingUp, Copy, CheckCircle, Link, BarChart3, ArrowUpRight, RefreshCw } from 'lucide-react'
 
 const stats = [
   { label: 'Total Earned', value: '$1,247', icon: <DollarSign size={20} />, change: '+12%', color: 'green' },
@@ -19,12 +19,33 @@ const transactions = [
 
 export default function DashboardPage() {
   const [copied, setCopied] = useState(false)
+  const [syncing, setSyncing] = useState(false)
+  const [syncMsg, setSyncMsg] = useState<string | null>(null)
   const affLink = 'https://vexora.com/ref/USER123'
 
   const copy = () => {
     navigator.clipboard.writeText(affLink)
     setCopied(true)
     setTimeout(() => setCopied(false), 2000)
+  }
+
+  const syncProducts = async () => {
+    setSyncing(true)
+    setSyncMsg(null)
+    try {
+      const res = await fetch('/api/products?keywords=trending')
+      const data = await res.json()
+      if (data.error) {
+        setSyncMsg(`Sync failed: ${data.error}`)
+      } else {
+        setSyncMsg(`Synced ${data.products?.length || 0} products`)
+      }
+    } catch (err) {
+      setSyncMsg('Sync failed: network error')
+    } finally {
+      setSyncing(false)
+      setTimeout(() => setSyncMsg(null), 4000)
+    }
   }
 
   return (
@@ -46,9 +67,20 @@ export default function DashboardPage() {
             <h1 className="text-3xl font-black">Affiliate <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Dashboard</span></h1>
             <p className="text-gray-400 text-sm mt-1">Welcome back, Sajid! 👋</p>
           </div>
-          <a href="/cpa" className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-full text-sm font-bold transition flex items-center gap-2">
-            Earn More <ArrowUpRight size={14} />
-          </a>
+          <div className="flex items-center gap-3">
+            {syncMsg && <span className="text-xs text-gray-400">{syncMsg}</span>}
+            <button
+              onClick={syncProducts}
+              disabled={syncing}
+              className="bg-white/10 hover:bg-white/20 disabled:opacity-50 text-white px-4 py-2 rounded-full text-sm font-bold transition flex items-center gap-2"
+            >
+              <RefreshCw size={14} className={syncing ? 'animate-spin' : ''} />
+              {syncing ? 'Syncing...' : 'Sync Products'}
+            </button>
+            <a href="/cpa" className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-full text-sm font-bold transition flex items-center gap-2">
+              Earn More <ArrowUpRight size={14} />
+            </a>
+          </div>
         </div>
 
         {/* Stats */}
