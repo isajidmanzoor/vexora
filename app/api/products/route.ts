@@ -16,9 +16,10 @@ export async function GET(request: Request) {
 
   const params: Record<string, string> = {
     app_key: APP_KEY,
-    timestamp: new Date().toISOString().replace('T', ' ').substring(0, 19),
+    timestamp: String(Date.now()),
     sign_method: 'sha256',
     method: 'aliexpress.affiliate.product.query',
+    v: '2.0',
     keywords,
     target_currency: 'USD',
     target_language: 'EN',
