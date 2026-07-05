@@ -1,6 +1,6 @@
 'use client'
 import { useState, useEffect } from 'react'
-import { Search, ShoppingCart, Star, Heart, Filter, Loader } from 'lucide-react'
+import { Search, ShoppingCart, Star, Heart, Filter, Loader, RefreshCw } from 'lucide-react'
 
 const categories = [
   { name: 'All', id: '' },
@@ -25,6 +25,8 @@ export default function ProductsPage() {
   const [added, setAdded] = useState<string | null>(null)
   const [showFilter, setShowFilter] = useState(false)
   const [maxPrice, setMaxPrice] = useState(200)
+  const [syncing, setSyncing] = useState(false)
+  const [syncMsg, setSyncMsg] = useState<string | null>(null)
 
   const fetchProducts = async (keywords = 'trending', categoryId = '') => {
     setLoading(true)
@@ -45,6 +47,15 @@ export default function ProductsPage() {
   useEffect(() => {
     fetchProducts()
   }, [])
+
+  const syncNow = async () => {
+    setSyncing(true)
+    setSyncMsg(null)
+    await fetchProducts(activeCategory.name === 'All' ? 'trending' : activeCategory.name, activeCategory.id)
+    setSyncing(false)
+    setSyncMsg('Synced!')
+    setTimeout(() => setSyncMsg(null), 2000)
+  }
 
   const handleCategory = (cat: { name: string, id: string }) => {
     setActiveCategory(cat)
@@ -125,12 +136,22 @@ export default function ProductsPage() {
 
         {/* Sort + Filter */}
         <div className="flex items-center justify-between gap-3 mb-6">
-          <button
-            onClick={() => setShowFilter(!showFilter)}
-            className="flex items-center gap-2 bg-white/5 border border-white/10 px-4 py-2 rounded-full text-sm text-gray-400 hover:border-purple-500/50 transition"
-          >
-            <Filter size={14} /> Filter
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setShowFilter(!showFilter)}
+              className="flex items-center gap-2 bg-white/5 border border-white/10 px-4 py-2 rounded-full text-sm text-gray-400 hover:border-purple-500/50 transition"
+            >
+              <Filter size={14} /> Filter
+            </button>
+            <button
+              onClick={syncNow}
+              disabled={syncing}
+              className="flex items-center gap-2 bg-white/5 border border-white/10 px-4 py-2 rounded-full text-sm text-gray-400 hover:border-purple-500/50 transition disabled:opacity-50"
+            >
+              <RefreshCw size={14} className={syncing ? 'animate-spin' : ''} />
+              {syncMsg || (syncing ? 'Syncing...' : 'Sync')}
+            </button>
+          </div>
           <select
             value={sort}
             onChange={e => setSort(e.target.value)}
