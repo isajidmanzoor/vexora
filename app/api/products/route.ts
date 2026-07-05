@@ -21,6 +21,7 @@ export async function GET(request: Request) {
     v: '2.0',
     tracking_id: 'vexora',
     sign_method: 'sha256',
+    partner_id: 'top-sdk-nodejs',
     keywords,
     target_currency: 'USD',
     target_language: 'EN',
