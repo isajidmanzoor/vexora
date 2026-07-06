@@ -4,8 +4,10 @@ import crypto from 'crypto'
 const APP_KEY = process.env.ALIEXPRESS_APP_KEY!
 const APP_SECRET = process.env.ALIEXPRESS_APP_SECRET!
 
+let lastSortedString = ''
 function sign(params: Record<string, string>) {
   const sorted = Object.keys(params).sort().map(k => `${k}${params[k]}`).join('')
+  lastSortedString = sorted
   return crypto.createHmac('sha256', APP_SECRET).update(sorted).digest('hex').toUpperCase()
 }
 
@@ -39,7 +41,7 @@ export async function GET(request: Request) {
     const res = await fetch(url)
     const data = await res.json()
     const products = data?.aliexpress_affiliate_product_query_response?.resp_result?.result?.products?.product || []
-    return NextResponse.json({ products, _debug: data })
+    return NextResponse.json({ products, _debug: data, _sign_debug: { sorted_string: lastSortedString, app_key: APP_KEY, sign: params.sign, timestamp: params.timestamp, full_url: url } })
   } catch (err) {
     return NextResponse.json({ products: [], error: 'Failed to fetch', _debug: String(err) })
   }
