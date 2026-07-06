@@ -16,7 +16,7 @@ export async function GET(request: Request) {
 
   const params: Record<string, string> = {
     app_key: APP_KEY,
-    method: 'aliexpress.affiliate.product.query',
+    method: 'aliexpress.affiliate.hotproduct.query',
     timestamp: String(Date.now()),
     v: '2.0',
     tracking_id: 'vexora',
